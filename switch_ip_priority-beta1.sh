@@ -10,8 +10,12 @@ clear
 
 while :
 do
+    # 获取当前网络接口的IP优先级设置
+    current_precedence=$(grep "^$(ip route show default | awk '/default/ {print $5}')" /etc/gai.conf | awk '{print $NF}')
+
     # 显示菜单
     echo -e "${yellow}歡迎使用 IP 協議優先級選擇工具${plain}"
+    echo -e "${green}當前傾向的IP優先級: ${current_precedence}${plain}"
     echo "----------------------------------------"
     echo -e "${green}當前可用網卡列表：${plain}"
     ifconfig | grep mtu | awk '{print $1}'
