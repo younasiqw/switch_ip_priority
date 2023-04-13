@@ -24,13 +24,13 @@ switch_ip_priority () {
     read -p "請選擇要切換的IP協議優先級：1. IPv4優先 2. IPv6優先 3. 退出 " choice
     case $choice in
         1)
-            sed -i 's/^\( *\)precedence \([0-9]*\)/\1#precedence \2/g' $ipv4_conf_path
-            sed -i 's/^\( *\)label ::ffff:\([0-9]*\)/\1#label ::ffff:\2/g' $ipv6_conf_path
+            sed -i 's/^ *#precedence \(.*\) ipv6$/precedence \1 ipv6/g' $ipv4_conf_path
+            sed -i 's/^ *precedence \(.*\) ipv4/#precedence \1 ipv4/g' $ipv6_conf_path
             echo "IP協議優先已設置為：IPv4 > IPv6"
             ;;
         2)
-            sed -i 's/^\( *\)precedence \([0-9]*\)/\1#precedence \2/g' $ipv6_conf_path
-            sed -i 's/^\( *\)label ::ffff:\([0-9]*\)/\1#label ::ffff:\2/g' $ipv4_conf_path
+            sed -i 's/^ *#precedence \(.*\) ipv4$/precedence \1 ipv4/g' $ipv6_conf_path
+            sed -i 's/^ *precedence \(.*\) ipv6/#precedence \1 ipv6/g' $ipv4_conf_path
             echo "IP協議優先已設置為：IPv6 > IPv4"
             ;;
         3)
